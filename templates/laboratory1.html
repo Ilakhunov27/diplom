@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная установка</title>
+    <link rel="stylesheet" href="/static/assets/css/laboratory1style.css" />
+    <
+    <script>
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="box exp-setup transparent-box"><h2>Экспериментальная установка</h2></div>
+        <div class="box graphs transparent-box">
+            <h2>Графики</h2>
+
+            <img id="graphImage" src="/static/assets/css/images/график_вязкости.png" alt="График">
+        </div>
+
+        <div class="box input-output transparent-box">
+            <h3>Входные данные:</h3>
+             <!-- Ползунок температуры -->
+            <label for="temperature">Температура (°C):</label>
+            <input type="range" id="temperature" min="20" max="40" step="2" value="20" oninput="updateTempValue()">
+            <span id="tempValue">20</span>°C<!-- Отображение текущего значения -->
+
+            <!-- Выпадающий список жидкостей -->
+            <div>
+             <h3>Выберите жидкость:</h3>
+                <label for="liquid-select"></label>
+                <select id="liquid-select" class="liquid-selector transparent-box">
+                <option value="Вода" selected>Вода</option>
+                <option value="Ртуть">Ртуть</option>
+                <option value="Мёд">Мёд</option>
+                <option value="Молоко">Молоко</option>
+                <option value="Масло подсолнечное">Масло подсолнечное</option>
+                <option value="Спирт">Спирт</option>
+                <option value="Ацетон">Ацетон</option>
+                <option value="Бензин">Бензин</option>
+                <option value="Масло машинное">Масло машинное</option>
+            </select>
+
+                </div>
+        </div>
+
+        <div class="box control-buttons transparent-box-buttons button-container">
+            <div class="row">
+            <button onclick="sendData()" class="all-buttons col-4">Вычислить</button>
+            <button onclick="updateGraph()" class="all-buttons col-4">Построить графики</button>
+            <button class="all-buttons col-4">Завершить вычисления</button>
+            </div>
+            <div class="row">
+            <button onclick="changeLiquid()" class="all-buttons col-6">Поменять жидкость</button>
+            <button onclick="clearTableCalcData()" class="all-buttons col-6">Очистить</button>
+            </div>
+        </div>
+        <!--добавлено 3 иконки -->
+        <div class="box edit-tools transparent-box">
+            <h3>Выходные данные:</h3>
+            <p id="output">Вязкость: —</p>
+
+            <!-- Кнопки-иконки для таблиц -->
+            <div class="icon-buttons">
+                <button onclick="openPopup('popup1')">📊</button>
+                <button onclick="openPopup('popup2')">📈</button>
+                <button onclick="openPopup('popup3')">📉</button>
+            </div>
+        </div>
+
+        <!-- Всплывающие окна для таблиц -->
+        <div id="popup1" class="popup transparent-box">
+            <button class="close-btn" onclick="closePopup('popup1')">✖</button>
+            <h3>Таблица 1</h3>
+                <table>
+                    <thead>
+                        <tr><th>t(начальная)</th><th>t(конечная)</th><th>tay</th></tr>
+                    </thead>
+                    <tbody id="table1"></tbody>
+                </table>
+        </div>
+
+        <div id="popup2" class="popup transparent-box">
+            <button class="close-btn" onclick="closePopup('popup2')">✖</button>
+            <h3>Таблица 2</h3>
+                <table>
+                    <thead>
+                        <tr><th>t(средняя)</th><th>вязкость</th><th>T, K</th><th>1/T*10^-3, K^-1</th><th>n/T*10^-5</th><th>ln(n/T)</th></tr>
+                    </thead>
+                    <tbody id="table2"></tbody>
+                </table>
+        </div>
+
+        <div id="popup3" class="popup transparent-box">
+            <button class="close-btn" onclick="closePopup('popup3')">✖</button>
+            <h3>Таблица 3</h3>
+                <table>
+                    <thead>
+                        <tr><th>№</th><th>x = 1/T</th><th>y = ln(n/T)</th><th>x^2 * 10^-6</th><th>x*y*10^-3</th></tr>
+                    </thead>
+                    <tbody  id="table3"></tbody>
+                </table>
+        </div>
+
+    </div>
+
+        <script src="/static/assets/js/laboratory1script.js"></script>
+
+</body>
+</html>

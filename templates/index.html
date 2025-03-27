@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="ru">
+	<head>
+		<title>Massively by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="/static/assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<h1>Виртуальная лаборотория<br />
+						по молекулярной физике</h1>
+						<p>здесь ты сможешь сделать вычисления и визуализации<br/>
+                            разных работ по молекулярной физике</p>
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Продолжить</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Исследовать</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li class="active"><a href="index.html">Лабороторные работы</a></li>
+							<li><a href="generic.html">Визуалтзации</a></li>
+							<li><a href="elements.html">Методичка</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Featured Post -->
+							<article class="post featured">
+								<header class="major">
+									<span class="date">Добро пожаловать</span>
+									<h2><a href="#">Виртуальная Лаборатория<br />
+									по Молекулярной Физике</a></h2>
+									<p>Виртуальная лаборатория по молекулярной физике — это цифровая платформа, позволяющая проводить моделирование и анализ физических процессов на молекулярном уровне. Она помогает изучать свойства жидкостей, газов и твердых тел, а также такие явления, как вязкость, теплопроводность, диффузия и поверхностное натяжение. Используется для обучения и исследований без необходимости физического оборудования.</p>
+								</header>
+								<a href="#" class="image main"><img src="/static/assets/css/images/заднийфон.jpg" alt="" /></a>
+								<ul class="actions special">
+									<li><a href="#" class="button large">Изучить</a></li>
+								</ul>
+							</article>
+
+						<!-- Posts -->
+							<section class="posts">
+								<article>
+									<header>
+										<span class="date">1 лабораторная</span>
+										<h2><a href="{{ url_for('laboratory1_page') }}">ИССЛЕДОВАНИЕ ТЕМПЕРАТУРНОЙ<br />
+										ЗАВИСИМОСТИ ВЯЗКОСТИ ЖИДКОСТИ </a></h2>
+									</header>
+									<a href="{{ url_for('laboratory1_page') }}" class="image fit"><img src="/static/assets/css/images/вязкизометр.jpg" alt="" /></a>
+									<p>Цель работы:<br/>
+                                    1. Определить зависимость вязкости жидкости от температуры методом капиллярного вискозиметра с использованием формулы Пуазейля.<br/>
+                                    2. Интерпретировать зависимость вязкости от температуры по модели Я.И. Френкеля и оценить энергию активации молекул.</p>
+									<ul class="actions special">
+										<li><a href="{{ url_for('laboratory1_page') }}" class="button">Исследовать</a></li>
+									</ul>
+								</article>
+
+							</section>
+					</div>
+
+
+
+			</div>
+
+		<!-- Scripts -->
+	<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/static/assets/js/browser.min.js"></script>
+			<script src="/static/assets/js/breakpoints.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<script src="/static/assets/js/main.js"></script>
+
+	</body>
+</html>
