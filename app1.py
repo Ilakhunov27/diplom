@@ -10,8 +10,6 @@ calc_vis = ViscosityCalculator()
 plotter = ViscosityPlotter()
 FILE_PATH = "extra_files/liquid.txt"
 
-
-
 # JSON-данные с жидкостями и их плотностями
 liquids = {
     "Вода": 1000,
