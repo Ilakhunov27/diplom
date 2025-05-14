@@ -9,6 +9,23 @@ app = Flask(__name__)
 calc_vis = ViscosityCalculator()
 FILE_PATH = "extra_files/liquid.txt"
 
+@app.route('/update_data', methods=['POST'])
+def update_data():
+    new_data = request.json
+    file_path = os.path.join('extra_files', 'TableCalcData.json')  # <-- убедись в пути
+
+    with open(file_path, 'r', encoding='utf-8') as f:
+        json_data = json.load(f)
+
+    # Сохраняем именно в table 4
+    for key in new_data:
+        if key in json_data["table 4"]:
+            json_data["table 4"][key].append(new_data[key])
+
+    with open(file_path, 'w', encoding='utf-8') as f:
+        json.dump(json_data, f, ensure_ascii=False, indent=2)
+
+    return jsonify({"status": "ok", "saved": new_data})
 
 
 def load_liquids():
