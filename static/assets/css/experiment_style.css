@@ -1,0 +1,529 @@
+
+.lab-background {
+  position: absolute;
+  width: 60%;
+  height: 70%;
+  background: url('/static/assets/css/images/обои_экспериментальной установки.jpg');
+  background-size: cover;
+  opacity: 0.9;
+}
+
+
+.table {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 60px;
+  background: linear-gradient(to top, #3e2723, #5d4037);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+.thermo-bath {
+  position: absolute;
+  bottom: 60px;
+  left: 25%;
+  width: 300px;
+  height: 180px;
+  z-index: 2;
+}
+
+/* Прозрачный бак */
+.bath-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 3px solid #cfd8dc; /* стеклянная/акриловая рамка */
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.water-layer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 65%;
+  background: linear-gradient(
+    to top,
+    rgba(33, 150, 243, 0.9),
+    rgba(33, 150, 243, 0.6)
+  );
+  border-top: 1px solid rgba(33, 150, 243, 1);
+}
+
+
+/* Металлическая крышка */
+.metal-top {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(to bottom, #b0bec5, #90a4ae);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 3;
+}
+
+.control-screen {
+  position: absolute;
+  top: -80px;
+  right: -20px;
+  width: 80px;
+  height: 60px;
+  background: #424242;
+  border: 2px solid #212121;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen-display {
+  width: 90%;
+  height: 85%;
+  background: #212121;
+  color: #00e5ff;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  padding: 4px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 5px #00e5ff88;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen-label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 2px;
+}
+
+.screen-subtext {
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.lab-thermometer {
+  position: absolute;
+  right: 100px; /* отступ от правого края */
+  bottom: 10px;
+  width: 30px;
+  height: 400px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.thermo-glass {
+  position: relative;
+  width: 36px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #cfd8dc;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+}
+
+.thermo-liquid {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 152px; /* это примерно 20°C, меняется JS-ом */
+  background: linear-gradient(to top, #e53935, #f44336);
+  transition: height 0.5s ease;
+}
+
+/* нижний шарик-резервуар */
+.thermo-bulb {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(to top, #e53935, #f44336);
+  border-radius: 50%;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  border: 2px solid #cfd8dc;
+  margin-top: 4px;
+}
+
+/* шкала */
+.thermo-scale {
+  position: absolute;
+  left: 2px;
+  width: 80px;
+  height: 100%;
+  font-size: 10px;
+  color: #263238;
+}
+
+.tick {
+  position: absolute;
+  left: 0;
+  transform: translateY(50%);
+  border-bottom: 1px solid #90a4ae;
+}
+
+.glass-pipe {
+    left: 25%;
+  top: -100%;
+  position: relative;
+  width: 40px;
+  height: 70px;
+  margin: 50px auto;
+  background: rgba(0, 0, 0); /* светло-голубой стеклянный эффект */
+  border: 4px solid rgba(0, 150, 255, 0.4);
+  border-radius: 20px;
+  box-shadow: inset 0 0 8px rgba(0, 150, 255, 0.4);
+}
+
+.pipe-cap {
+  position: absolute;
+  width: 40px;
+  height: 20px;
+  background: rgba(0, 0, 0);
+  border: 4px solid rgba(0, 150, 255, 0.4);
+  border-radius: 50%;
+}
+
+
+
+.tv-container {
+    width: 150px;
+    height: 100px;
+    background-color: #000;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.tv-screen {
+    width: 130px;
+    height: 40px;
+    background-color: #222;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#timerDisplay {
+    font-size: 16px;
+    color: white;
+    letter-spacing: 3px;
+}
+
+
+.viscosimeter-container {
+  position: relative;
+  width: 320px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+/* Left vertical tube */
+.tube-left {
+  position: absolute;
+  width: 50px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 4px solid lightskyblue;
+  border-radius: 7px;
+  left: 50px;
+  top: 70px;
+  box-shadow: 0 0 10px rgba(100, 150, 200, 0.3);
+}
+
+/* Черная крышечка */
+        .tube-cap {
+            position: absolute;
+            width: 58px; /* Шире трубки на 8px */
+            height: 15px;
+            background: #222;
+            border-radius: 5px 5px 0 0;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .cap-left {
+            left: 50px; /* Центрирование */
+            top: 70px; /* На 5px выше трубки */
+        }
+
+        .cap-right {
+    right: 52px;
+    top: 70px;
+    width: 54px;
+    height: 16px;
+    background: black;
+    position: absolute;
+    transition: transform 0.5s ease;
+    transform: translateY(0);
+}
+
+.cap-right.open {
+    transform: translateY(-20px);
+}
+
+/* Right vertical tube */
+.tube-right {
+  position: absolute;
+  width:50px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 4px solid lightskyblue;
+  border-radius: 7px;
+  right: 50px;
+  top: 70px;
+  box-shadow: 0 0 10px rgba(100, 150, 200, 0.3);
+}
+
+
+.tube-bottom {
+  position: absolute;
+  width: 214px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 4px solid lightskyblue;
+  border-radius: 7px;
+  left: 50px;
+  bottom: -75px;
+  box-shadow: 0 0 10px rgba(100, 150, 200, 0.3);
+}
+
+
+
+/* Glass bubbles */
+.glass-bubble {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(150, 180, 220, 0.8);
+  border-radius: 50%;
+  right: 47px;
+  z-index: 5;
+  box-shadow: 0 0 5px rgba(100, 150, 200, 0.3);
+}
+
+.bubble-1 { top: 100px; }
+.bubble-2 { top: 200px; }
+
+/* Mark lines */
+.mark-line {
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background-color: rgba(100, 100, 100, 0.7);
+  right: 44px;
+}
+
+.line-1 { top: 165px; background-color: red }
+.line-2 { top: 265px; background-color: blue}
+
+/* Reservoir */
+.reservoir {
+  position: absolute;
+  width: 58px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.3);
+  border: 6px solid lightskyblue;
+  border-radius: 4px;
+  left: 44px;
+  bottom: 20px;
+  z-index: 1;
+}
+
+/* Вода в трубках */
+        .water {
+            position: absolute;
+            width: 100%;
+            background: linear-gradient(to bottom,
+                       rgba(30, 144, 255, 0.8),
+                       rgba(135, 206, 250, 0.7));
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* Левая трубка: вода выше резервуара (~20px над ним) */
+        .water-left {
+            height: 170px; /* Высота воды */
+            bottom: 20px; /* Отступ от низа */
+        }
+
+        /* Правая трубка: вода выше первого пузырька (~20px над ним) */
+        .water-right {
+            height: 187px; /* Высота воды */
+            bottom: 0;
+        }
+
+
+.pump-container {
+  position: absolute;
+  bottom: 650px;
+  left: 790px;
+  display: flex;
+  align-items: center;
+}
+
+.tube {
+  width: 120px;
+  height: 20px;
+  background-color: #333;
+  border-radius: 2px;
+}
+
+.bulb {
+  width: 55px;
+  height: 55px;
+  background: radial-gradient(circle at 50% 30%, #555 0%, #222 80%);
+  border-radius: 70% 50% 45% 45% / 55% 55% 45% 45%;
+  box-shadow: inset -2px -4px 6px rgba(0,0,0,0.4);
+  left: 20px;
+}
+
+@keyframes squeezeBulb {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.7); }
+}
+
+.bulb.squeeze {
+  animation: squeezeBulb 0.3s ease;
+}
+
+
+        /* Миксер (основание) */
+        .mixer-base {
+            position: absolute;
+            top: 120px;
+            left:10%;
+            width: 40px;
+            height: 80px;
+            background: #616161;
+            border-radius: 5px;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        /* Штанга миксера */
+        .mixer-stick {
+            position: absolute;
+            top: 120px;
+            left:10%;
+            width: 10px;
+            height: 200px;
+            background: #424242;
+            transform: translateX(-50%);
+            z-index: 5;
+        }
+
+        /* Венчик миксера */
+        .whisk {
+            position: absolute;
+            top: 320px;
+            left:10%;
+            width: 80px;
+            height: 80px;
+            border: 3px solid #555;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transform-origin: center;
+            animation: spin 1.5s linear infinite;
+            z-index: 15;
+        }
+
+        /* Перекрестие венчика */
+        .whisk::before,
+        .whisk::after {
+            content: "";
+            position: absolute;
+            background: #555;
+        }
+
+        .whisk::before {
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            transform: translateY(-50%);
+        }
+
+        .whisk::after {
+            left: 50%;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            transform: translateX(-50%);
+        }
+
+
+        @keyframes spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        @keyframes ripple-effect {
+            0% {
+                width: 0;
+                height: 0;
+                opacity: 0.5;
+            }
+            100% {
+                width: 200px;
+                height: 200px;
+                opacity: 0;
+            }
+        }
+
+ .containers-for-pipes-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0;
+    gap: 100px;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .containers-for-pipes-1 .pipe {
+      left: 200px;
+     top: 450px;
+    width: 40px;
+    height: 200px;
+    border-radius: 20px;
+    position: relative;
+    background: gray;
+  }
+  .containers-for-pipes-1 .heater {
+    background: linear-gradient(to top, red, orange);
+  }
+  .containers-for-pipes-1 .cooler {
+    background: linear-gradient(to top, lightblue, blue);
+  }
+
+.output-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.output-row {
+  flex: 1;
+  min-width: calc(50% - 8px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+

@@ -20,5 +20,5 @@ class ViscosityCalculator:
         if tay is None:
             tay = self.tay  # Если tay не передан, используем текущее значение
         B = (self.pi * self.R**4 * self.g * self.h) / (8 * self.Q * self.l)
-        return B * ro * tay  # Используем self.ro
+        return B * ro * tay * 100  # Используем self.ro
 

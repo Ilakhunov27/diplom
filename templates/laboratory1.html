@@ -5,19 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лабораторная установка</title>
     <link rel="stylesheet" href="/static/assets/css/laboratory1style.css" />
-    <
+    <link rel="stylesheet" href="/static/assets/css/experiment_style.css" />
     <script>
 
     </script>
 </head>
 <body>
     <div class="container">
-        <div class="box exp-setup transparent-box"><h2>Экспериментальная установка</h2></div>
-        <div class="box graphs transparent-box">
-            <h2>Графики</h2>
+       <div id="equation-container" style="width: 1420px; height: 150px">
+  {% include "exp-equ.html" %}
+</div>
 
-            <img id="graphImage" src="/static/assets/css/images/график_вязкости.png" alt="График">
+       <div class="box graphs transparent-box">
+          <h2>Графики</h2>
+          <div class="slider">
+            <button class="slider-btn left" onclick="changeSlide(-1)">&#10094;</button>
+
+            <img id="graphImage" src="/static/assets/css/images/надпись%20для%20графика.png" alt="График жидкости" style="display: block;">
+            <img id="plotImage3" src="" alt="График из таблицы 4" style="display:none; transition: opacity 0.3s;">
+
+
+            <button class="slider-btn right" onclick="changeSlide(1)">&#10095;</button>
+          </div>
         </div>
+
+
 
         <div class="box input-output transparent-box">
             <h3>Входные данные:</h3>
@@ -25,52 +37,109 @@
             <label for="temperature">Температура (°C):</label>
             <input type="range" id="temperature" min="20" max="40" step="2" value="20" oninput="updateTempValue()">
             <span id="tempValue">20</span>°C<!-- Отображение текущего значения -->
+            <br/>
+            <button class="liquid-selector transparent-box button_substances active" id="liquid-button">Жидкости</button>
+            <button class="liquid-selector transparent-box button_substances inactive" id="gas-button">Газы</button>
+
 
             <!-- Выпадающий список жидкостей -->
-            <div>
-             <h3>Выберите жидкость:</h3>
+            <div id="liquid-list">
+                <h3>Список жидкостей:</h3>
                 <label for="liquid-select"></label>
                 <select id="liquid-select" class="liquid-selector transparent-box">
-                <option value="Вода" selected>Вода</option>
-                <option value="Ртуть">Ртуть</option>
-                <option value="Мёд">Мёд</option>
-                <option value="Молоко">Молоко</option>
-                <option value="Масло подсолнечное">Масло подсолнечное</option>
-                <option value="Спирт">Спирт</option>
-                <option value="Ацетон">Ацетон</option>
-                <option value="Бензин">Бензин</option>
-                <option value="Масло машинное">Масло машинное</option>
-            </select>
+                    <option value="Вода" selected>Вода</option>
+                    <option value="Ртуть">Ртуть</option>
+                    <option value="Мёд">Мёд</option>
+                    <option value="Молоко">Молоко</option>
+                    <option value="Масло подсолнечное">Масло подсолнечное</option>
+                    <option value="Спирт">Спирт</option>
+                    <option value="Ацетон">Ацетон</option>
+                    <option value="Бензин">Бензин</option>
+                    <option value="Масло машинное">Масло машинное</option>
+                </select>
+            </div>
 
+            <!-- Список газов -->
+            <div id="gas-list" style="display: none;" >
+                <h3>Список газов:</h3>
+                <select id="gas-select" class="liquid-selector transparent-box">
+                    <option>Воздух</option>
+                    <option>Гелий</option>
+                    <option>Углекислый газ</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Блок кнопок для жидкостей -->
+        <div id="liquid-buttons" class="box control-buttons transparent-box-buttons button-container">
+
+            <div class="row">
+                <button id="calculateButton" onclick="sendData()" class="all-buttons col-4">Вычислить</button>
+                <button onclick="updateGraph()" class="all-buttons col-4">Построить графики</button>
+                <button onclick="calculateResults()" class="all-buttons col-4">Завершить вычисления</button>
+            </div>
+            <br/>
+            <div class="row">
+                <button onclick="changeLiquid()" class="all-buttons col-6">Поменять жидкость</button>
+                <button onclick="clearTableData()" class="all-buttons col-6">Очистить</button>
+                <div id="liquid-icons" class="icon-buttons"  style="margin-right: 500px">
+                        <button onclick="openPopup('popup1')">📊</button>
+                        <button onclick="openPopup('popup2')">📈</button>
+                        <button onclick="openPopup('popup3')">📉</button>
+                    </div>
+            </div>
+
+
+
+        </div>
+
+        <!-- Блок кнопок для газов (изначально скрыт) -->
+        <div id="gas-buttons" class="box control-buttons transparent-box-buttons button-container" style="display: none;">
+            <div class="row">
+                <button id="calculateButton" onclick="calculateGasParameters();loadTableData()" class="all-buttons col-4">Вычислить</button>
+                <button onclick="" class="all-buttons col-4">Построить графики</button>
+                <button onclick="" class="all-buttons col-4">Завершить вычисления</button>
+            </div>
+            <br/>
+            <div class="row">
+                <button onclick="" class="all-buttons col-6">Поменять газ</button>
+                <button onclick="clearTableData()" class="all-buttons col-6">Очистить</button>
+                <div id="gas-icons" class="icon-buttons" style="display: none;">
+                        <button onclick="openPopup('popup4')">📊</button>
                 </div>
+            </div>
         </div>
 
-        <div class="box control-buttons transparent-box-buttons button-container">
-            <div class="row">
-            <button onclick="sendData()" class="all-buttons col-4">Вычислить</button>
-            <button onclick="updateGraph()" class="all-buttons col-4">Построить графики</button>
-            <button class="all-buttons col-4">Завершить вычисления</button>
-            </div>
-            <div class="row">
-            <button onclick="changeLiquid()" class="all-buttons col-6">Поменять жидкость</button>
-            <button onclick="clearTableCalcData()" class="all-buttons col-6">Очистить</button>
-            </div>
-        </div>
         <!--добавлено 3 иконки -->
-        <div class="box edit-tools transparent-box">
-            <h3>Выходные данные:</h3>
-            <p id="output">Вязкость: —</p>
-
-            <!-- Кнопки-иконки для таблиц -->
-            <div class="icon-buttons">
-                <button onclick="openPopup('popup1')">📊</button>
-                <button onclick="openPopup('popup2')">📈</button>
-                <button onclick="openPopup('popup3')">📉</button>
+        <div class="box edit-tools transparent-box ">
+        <h3>Выходные данные:</h3>
+            <!--выходные данные для жидкостей -->
+            <div class="output-container" id="liquid-output">
+                <div class="output-row">
+                    <p id="output">Вязкость жидкости: —</p>
+                    <p id="activation-energy">Энергия активации (U): —</p>
+                </div>
+                <div class="output-row">
+                    <p id="average-values">Средние значения: —</p>
+                    <p id="empirical-formula">Полуэмпирическая формула: —</p>
+                </div>
             </div>
-        </div>
+            <!-- Выходные данные для газов -->
+            <div id="gas-output" class="output-container" style="display: none;">
+                <div class="output-row">
+                    <p id="gas-viscosity">Вязкость газа: —</p>
+                    <p id="gas-pressure">Давление: —</p>
+                </div>
+                <div class="output-row">
+                    <p id="gas-mean-free-path">Длина свободного пробега: —</p>
+                    <p id="gas-molecule-diameter">Эффективный диаметр молекул воздуха: —</p>
+                </div>
+            </div>
+
+</div>
 
         <!-- Всплывающие окна для таблиц -->
-        <div id="popup1" class="popup transparent-box">
+        <div id="popup1" class="popup transparent-box table-container">
             <button class="close-btn" onclick="closePopup('popup1')">✖</button>
             <h3>Таблица 1</h3>
                 <table>
@@ -81,18 +150,18 @@
                 </table>
         </div>
 
-        <div id="popup2" class="popup transparent-box">
+        <div id="popup2" class="popup transparent-box table-container">
             <button class="close-btn" onclick="closePopup('popup2')">✖</button>
             <h3>Таблица 2</h3>
                 <table>
                     <thead>
-                        <tr><th>t(средняя)</th><th>вязкость</th><th>T, K</th><th>1/T*10^-3, K^-1</th><th>n/T*10^-5</th><th>ln(n/T)</th></tr>
+                        <tr><th>tay(средняя)</th><th>вязкость</th><th>T, K</th><th>1/T*10^-3, K^-1</th><th>n/T*10^-3</th><th>ln(n/T)</th></tr>
                     </thead>
                     <tbody id="table2"></tbody>
                 </table>
         </div>
 
-        <div id="popup3" class="popup transparent-box">
+        <div id="popup3" class="popup transparent-box table-container">
             <button class="close-btn" onclick="closePopup('popup3')">✖</button>
             <h3>Таблица 3</h3>
                 <table>
@@ -103,9 +172,22 @@
                 </table>
         </div>
 
+        <!-- Всплывающие окна для таблиц -->
+        <div id="popup4" class="popup transparent-box table-container">
+            <button class="close-btn" onclick="closePopup('popup4')">✖</button>
+            <h3>Таблица</h3>
+                <table>
+                    <thead>
+                        <tr><th>h1</th><th>h2</th><th>h(ср)</th><th>t,c</th><th>P,па</th><th>n(вязкость), па*с</th><th>T,C</th></tr>
+                    </thead>
+                    <tbody id="table4"></tbody>
+                </table>
+        </div>
     </div>
 
         <script src="/static/assets/js/laboratory1script.js"></script>
+        <script src="/static/assets/js/labrotary1-gas.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </body>
 </html>

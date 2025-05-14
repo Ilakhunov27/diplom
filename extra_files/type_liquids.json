@@ -1,0 +1,92 @@
+{
+    "Вода": {
+        "density": 1000,
+        "color": "#4FC3F7",
+        "tay_params": {
+            "start": 130,
+            "coef": 5,
+            "rand_range": 4,
+            "divider": 50.8
+        }
+    },
+    "Ртуть": {
+        "density": 13546,
+        "color": "#B0BEC5",
+        "tay_params": {
+            "start": 180,
+            "coef": 3,
+            "rand_range": 3,
+            "divider": 62
+        }
+    },
+    "Мёд": {
+        "density": 1420,
+        "color": "#FFB300",
+        "tay_params": {
+            "start": 500,
+            "coef": 25,
+            "rand_range": 20,
+            "divider": 0.02925
+        }
+    },
+    "Молоко": {
+        "density": 1030,
+        "color": "#FAFAFA",
+        "tay_params": {
+            "start": 150,
+            "coef": 6,
+            "rand_range": 5,
+            "divider": 29
+        }
+    },
+    "Масло подсолнечное": {
+        "density": 920,
+        "color": "#FFC107",
+        "tay_params": {
+            "start": 350,
+            "coef": 15,
+            "rand_range": 10,
+            "divider": 2.145
+        }
+    },
+    "Спирт": {
+        "density": 789,
+        "color": "#81D4FA",
+        "tay_params": {
+            "start": 110,
+            "coef": 4,
+            "rand_range": 3,
+            "divider": 28.48
+        }
+    },
+    "Ацетон": {
+        "density": 784,
+        "color": "#E1F5FE",
+        "tay_params": {
+            "start": 90,
+            "coef": 3,
+            "rand_range": 2,
+            "divider": 82.26
+        }
+    },
+    "Бензин": {
+        "density": 710,
+        "color": "#FFF176",
+        "tay_params": {
+            "start": 100,
+            "coef": 4,
+            "rand_range": 3,
+            "divider": 42.448
+        }
+    },
+    "Масло машинное": {
+        "density": 890,
+        "color": "#616161",
+        "tay_params": {
+            "start": 450,
+            "coef": 20,
+            "rand_range": 15,
+            "divider": 1.63
+        }
+    }
+}

@@ -1,24 +1,47 @@
 import json
 import math
 from random import random as r
+from ViscosityCalculator import ViscosityCalculator
 
 
 class TableCalculator:
-    def __init__(self, temp, tay, file_path="extra_files/TableCalcData.json"):
+    def __init__(self, temp, tay, file_path="extra_files/TableCalcData.json", liquid_path="extra_files/liquid.txt",
+                 type_liquid="extra_files/type_liquids.json"):
         self.temp = temp
         self.tay = tay
         self.file_path = file_path
+        self.liquid_path = liquid_path
+        self.type_liquid_path = type_liquid
+
         self.data = self.load_data()
+        self.liquid = self.load_liquid()
+        self.type_liquid = self.load_type_liquid()
 
     def load_data(self):
         with open(self.file_path, "r", encoding="utf-8") as file:
             return json.load(file)
 
+    def load_liquid(self):
+        with open(self.liquid_path, "r", encoding="utf-8") as file:
+            return file.read().strip()  # strip() убирает лишние \n
+
+    def load_type_liquid(self):
+        with open(self.type_liquid_path, "r", encoding="utf-8") as file:
+            return json.load(file)
+
     def calculate_values(self):
-        B = 3.85e-6
-        ro = 1000
-        n = ro * B * self.tay * 100
-        T = 272.15 + 20
+        if self.liquid in self.type_liquid:
+            ro = self.type_liquid[self.liquid]["density"]
+            # далее логика, например:
+            calculator = ViscosityCalculator(tay=self.tay)
+            n = calculator.calculate_viscosity(ro=ro)
+            # и т.д.
+        else:
+            raise ValueError(f"Жидкость '{self.liquid}' не найдена в базе.")
+
+        calculator = ViscosityCalculator(tay=self.tay)
+        n = calculator.calculate_viscosity(ro=ro)
+        T =  272.15 + self.temp
         t2eq1 = 1 / T * 1000
         t2eq2 = n * 0.01 / T * 1000
         t2eq3 = math.log(t2eq2 * 0.001)

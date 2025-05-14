@@ -43,7 +43,7 @@ body {
         .edit-tools {
             grid-column: 1;
             grid-row: 3;
-            height: 100px;
+            height: 150px;
         }
         .graphs {
             grid-column: 2;
@@ -172,6 +172,13 @@ span{
     transition: background 0.3s, transform 0.2s; /* Плавные эффекты */
 }
 
+/* Стиль при блокировке (красный) */
+.all-buttons.disabled-processing {
+    background-color: rgba(198, 40, 40, 0.8) !important; /* Красный */
+    border-color: #c62828 !important;
+    cursor: not-allowed;
+}
+
 /* Эффект при наведении */
 .all-buttons:hover {
     transform: scale(1.2);
@@ -192,3 +199,115 @@ span{
 
 
 
+/* Контейнер таблицы с прокруткой */
+.table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    border: 2px solid rgba(0, 0, 139, 0.8); /* Темно-синяя граница */
+    padding: 5px;
+}
+
+/* Стили для таблицы */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(0, 0, 139, 0.8);
+    color: white;
+}
+
+th, td {
+    border: 2px solid rgba(0, 0, 139, 1); /* Темно-синие границы */
+    padding: 8px;
+    text-align: center;
+}
+
+/* Стилизация ползунка */
+.table-container::-webkit-scrollbar {
+    width: 12px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 139, 0.3); /* Полупрозрачный темно-синий трек */
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 139, 0.9); /* Темно-синий ползунок */
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.5); /* Белая окантовка для контраста */
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 139, 1); /* Чуть ярче при наведении */
+}
+
+.output-container {
+    display: flex;
+    justify-content: space-around; /* Распределение элементов */
+    align-items: center;
+    flex-wrap: wrap; /* Чтобы не ломалось на маленьких экранах */
+    gap: 10px; /* Промежутки между элементами */
+}
+
+.output-container p {
+    margin: 0;
+    white-space: nowrap; /* Чтобы не переносилось */
+}
+
+.slider {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.graph-img {
+  width: 80%;
+  height: auto;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background-color: rgba(255,255,255,0.6);
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.slider-btn.left {
+  left: 10px;
+}
+
+.slider-btn.right {
+  right: 10px;
+}
+
+
+.button_substances {
+    background-color: #0d3b66; /* тёмно-синий */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+    margin-right: 10px;
+}
+
+.button_substances:hover {
+    transform: scale(1.05);
+}
+
+.button_substances.active {
+    background-color: #0d3b66; /* активная — тёмно-синяя */
+}
+
+.button_substances.inactive {
+    background-color: #cc0000; /* неактивная — красная */
+}

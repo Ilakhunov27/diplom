@@ -1,29 +1,22 @@
 from flask import Flask, render_template, request, jsonify, send_from_directory
 from ViscosityCalculator import ViscosityCalculator
 from ViscosityPlotter import ViscosityPlotter
-from random import randint as r
+from random import randint as r, randint
 from MainCalculation import  TableCalculator
 import json
 import os
 app = Flask(__name__)
 calc_vis = ViscosityCalculator()
-plotter = ViscosityPlotter()
 FILE_PATH = "extra_files/liquid.txt"
 
 
 
-# JSON-данные с жидкостями и их плотностями
-liquids = {
-    "Вода": 1000,
-    "Ртуть": 13546,
-    "Мёд": 1420,
-    "Молоко": 1030,
-    "Масло подсолнечное": 920,
-    "Спирт": 789,
-    "Ацетон": 784,
-    "Бензин": 710,
-    "Масло машинное": 890
-}
+def load_liquids():
+    file_path = os.path.join("extra_files", "type_liquids.json")
+    with open(file_path, "r", encoding="utf-8") as file:
+        return json.load(file)
+
+liquids = load_liquids()  # Используем вместо старого словаря
 
 # Функция чтения выбранной жидкости
 def read_liquid():
@@ -37,6 +30,22 @@ def read_liquid():
 def write_liquid(liquid):
     with open(FILE_PATH, "w", encoding="utf-8") as file:
         file.write(liquid)
+
+@app.route('/clear_table_data', methods=['POST'])
+def clear_table_data():
+    file_path = "extra_files/TableCalcData.json"
+
+    with open(file_path, "r+", encoding="utf-8") as file:
+        data = json.load(file)
+        for table in data.values():
+            for key in table:
+                table[key] = []
+        file.seek(0)
+        json.dump(data, file, ensure_ascii=False, indent=4)
+        file.truncate()
+
+    return jsonify({"message": "Таблицы очищены"})
+
 
 
 @app.route('/extra_files/TableCalcData.json')
@@ -61,34 +70,61 @@ default_liquid = "Вода"  # Устанавливаем жидкость по 
 # Сбрасываем жидкость в "Вода" при запуске
 write_liquid(default_liquid)
 
+@app.route('/load-liquid-equation')
+def load_liquid_equation():
+    return render_template('exp-equ.html')
+
+@app.route('/load-gas-equation')
+def load_gas_equation():
+    return render_template('exp-equ2forGases.html')
+
+
 @app.route('/laboratory_visualisation', methods=['POST'])
 def laboratory_visualisation():
     data = request.json
-    liquid = data.get('liquid', read_liquid())  # Получаем жидкость (из запроса или файла)
+    liquid = data.get('liquid')
+    if not liquid:
+        liquid = read_liquid()
 
     if liquid not in liquids:
-        liquid = default_liquid  # Если жидкость отсутствует, ставим "Вода"
+        liquid = default_liquid
 
-    write_liquid(liquid)  # Сохраняем в файл
+    write_liquid(liquid)
 
-    ro = liquids.get(liquid, 1000)  # Получаем плотность жидкости
-    temperature = float(data.get('temperature', 20))  # Получаем температуру
+    liquid_par = liquids[liquid]
+    ro = liquid_par.get("density", 1000)
+    print(f"viscosity is + {ro}")
+    try:
+        temperature = float(data.get('temperature', 20))
+    except (TypeError, ValueError):
+        temperature = 20
 
-    # Вычисления
-    equ = (22 - 20) / 2
-    tay = 130 - 5 * equ + r(0, 4)  # Пример вычисления
-
-    # заполнение таблицы
-    calculator = TableCalculator(22, tay)
+    params = liquid_par["tay_params"]
+    equ = (temperature - 20) / 2
+    tay = (params["start"] - params["coef"] * equ + randint(0, params["rand_range"])) / params["divider"]
+    calculator = TableCalculator(temperature, tay)
     calculator.process()
 
-    # Подключаем расчет вязкости
     result = calc_vis.calculate_viscosity(tay, ro)
 
-    # Генерируем график
-    image_url = plotter.plot_viscosity()['image_url']
 
-    return jsonify({'output': round(result, 6), 'image_url': image_url, 'ro': ro})
+    default_image = '/static/assets/css/images/график_вязкости.png'
+
+    plotter = ViscosityPlotter(json_path='extra_files/TableCalcData.json')
+    plot_1 = plotter.plot_viscosity()
+    image_url_1 = plot_1['image_url'] if os.path.exists(plotter.save_path) else default_image
+
+    plot_2 = plotter.plot_ln_viscosity_vs_inverse_temp()
+    image_url_2 = plot_2['image_url'] if os.path.exists('static/ln_plot.png') else default_image
+    # ==========================
+
+    return jsonify({
+        'output': round(result, 6),
+        'image_url_1': image_url_1,
+        'image_url_2': image_url_2,
+        'ro': ro,
+        "tay": tay,
+    })
 
 
 
